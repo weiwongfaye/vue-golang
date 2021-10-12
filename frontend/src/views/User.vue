@@ -15,7 +15,7 @@ export default {
         PostList
     },
     props: {
-      userid: { 
+      username: { 
         type: String, 
         default: "" 
       }
@@ -28,7 +28,7 @@ export default {
             return this.$store.getters["posts/userPosts"](this.user.username);
         },
         user() {
-            return this.$store.getters["users/getUser"](this.userid)
+            return this.$store.getters["users/getUser"](this.username)
         }
     }
 };

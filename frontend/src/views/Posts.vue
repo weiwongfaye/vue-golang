@@ -29,7 +29,7 @@ export default {
     methods: {
       addPost(text) {
       this.$store.dispatch("posts/addPost", {
-        user: this.$store.getters["auth/currentUser"].username,
+        username: this.$store.getters["auth/currentUser"].username,
         post: text
       });
     }

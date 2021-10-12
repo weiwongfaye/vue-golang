@@ -5,9 +5,9 @@
 </template>
 
 <script>
-  export default {
+export default {
     name: "NotFoundComponent"
-  };
+};
 </script>
 
 <style>

@@ -38,7 +38,7 @@ export default {
                     to: {
                         name: "User",
                         params: {
-                            userid: this.$store.getters["auth/currentUser"].username
+                            username: this.$store.getters["auth/currentUser"].username
                         }
                     }
                 }

@@ -24,9 +24,9 @@ export default {
     },
     actions: {},
     getters: {
-      getUser: state => userid => {
-        if (state.loadedUsers.some(user => user.username == userid)) {
-          return state.loadedUsers.find(user => user.username == userid);
+      getUser: state => username => {
+        if (state.loadedUsers.some(user => user.username == username)) {
+          return state.loadedUsers.find(user => user.username == username);
         } else {
           //Here I'll have to request from the server!!
           console.log("Here I'll have to request from the server!!")
