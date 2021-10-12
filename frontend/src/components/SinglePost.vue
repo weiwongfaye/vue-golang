@@ -60,10 +60,8 @@ export default {
             };
         },
         deletePost() {
-            var save_post = this.post;
-            console.log("this.post ", save_post);
             this.$store.dispatch("posts/deletePost", {
-                post: save_post
+                post: this.post
             })
         },
         addComment(text, post) {

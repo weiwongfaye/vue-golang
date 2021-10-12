@@ -84,16 +84,19 @@ export default {
         //     context.commit("ADD_COMMENT", { postId, comment });
         // },
         async deletePost(context, post) {
-            console.log("what is post: ", post)
-            console.log("what is post: ", post.Target)
+            console.log("vue3 props is proxy", post);
+            var save_post = JSON.parse(JSON.stringify(post));
+            console.log("what is post: ", save_post)
+            console.log("what is post id: ", save_post.post.id)
+            let postId = save_post.post.id;
 
-            fetch("http://localhost:3000/api/posts/" + post.id, {
+            fetch("http://localhost:3000/api/posts/" + postId, {
                 method: "DELETE"
             })
                 .then(response => {
                     if (response.ok) {
                         console.log(response);
-                        context.commit("DELETE_POST", post.id);
+                        context.commit("DELETE_POST", postId);
                         return;
                     }
                     throw Error(response);
