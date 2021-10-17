@@ -65,7 +65,10 @@ export default {
             // context.commit("ADD_POST", post);
             fetch("http://localhost:3000/api/posts", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { 
+                    "Content-Type": "application/json",
+                    Authorization: context.rootGetters["auth/getTokenHeader"]     
+                },
                 body: JSON.stringify(post)
             }).then(response => {
                 if (!response.ok) {
@@ -91,7 +94,11 @@ export default {
             let postId = save_post.post.id;
 
             fetch("http://localhost:3000/api/posts/" + postId, {
-                method: "DELETE"
+                method: "DELETE",
+                headers: {
+                    Authorization: context.rootGetters["auth/getTokenHeader"]     
+                }
+
             })
                 .then(response => {
                     if (response.ok) {
@@ -109,7 +116,8 @@ export default {
             fetch("http://localhost:3000/api/posts/" + postId + "/comments", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: context.rootGetters["auth/getTokenHeader"]   
                 },
                 body: JSON.stringify(comment)
             })

@@ -23,11 +23,15 @@ export default {
     data: function(){
       return {};
     },
+    mounted() {
+      this.$store.dispatch("users/addUser", {username: this.username});  
+    },  
     computed: {
         userPosts() {
-            return this.$store.getters["posts/userPosts"](this.user.username);
+            return this.$store.getters["posts/userPosts"](this.username);
         },
         user() {
+            console.log(this.username)
             return this.$store.getters["users/getUser"](this.username)
         }
     }

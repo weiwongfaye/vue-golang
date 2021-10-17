@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/gorilla/context"
 	"github.com/gorilla/mux"
 )
 
@@ -37,6 +38,10 @@ func addPost(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+	if !isUsernameContextOk(actualPost.Username, r) {
+		http.Error(w, "Cannot post for another user", http.StatusUnauthorized)
+		return
+	}
 	actualPost.ID = index
 	index++
 	actualPost.Date = time.Now()
@@ -63,6 +68,10 @@ func deletePost(w http.ResponseWriter, r *http.Request) {
 	}
 	for i := 0; i < len(posts); i++ {
 		if posts[i].ID == id {
+			if !isUsernameContextOk(posts[i].Username, r) {
+				http.Error(w, "Cannot delete post for another user", http.StatusUnauthorized)
+				return
+			}
 			posts[i] = posts[len(posts)-1]
 			posts = posts[:len(posts)-1]
 			w.WriteHeader(http.StatusOK)
@@ -92,6 +101,10 @@ func addComment(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+	if !isUsernameContextOk(actualComment.Username, r) {
+		http.Error(w, "Cannot comment post for another user", http.StatusUnauthorized)
+		return
+	}
 	for i := 0; i < len(posts); i++ {
 		if posts[i].ID == id {
 			var commMax int = 0
@@ -115,4 +128,15 @@ func addComment(w http.ResponseWriter, r *http.Request) {
 func getPosts(w http.ResponseWriter, r *http.Request) {
 	log.Println("GET post called")
 	sendJSONResponse(w, posts)
+}
+
+func isUsernameContextOk(username string, r *http.Request) bool {
+	usernameCtx, ok := context.Get(r, "username").(string)
+	if !ok {
+		return false
+	}
+	if usernameCtx != username {
+		return false
+	}
+	return true
 }

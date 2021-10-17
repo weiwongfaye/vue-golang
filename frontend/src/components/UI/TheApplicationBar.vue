@@ -34,9 +34,9 @@ export default {
                 },
                 {
                     visibleIfLoggedOut: false,
-                    name: "User",
+                    name: "Users",
                     to: {
-                        name: "User",
+                        name: "Users",
                         params: {
                             username: this.$store.getters["auth/currentUser"].username
                         }

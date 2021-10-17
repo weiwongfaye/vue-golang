@@ -23,8 +23,8 @@ const routes = [
   //   props: true
   // },
   {
-    path: "/user/:username",
-    name: "User",
+    path: "/users/:username",
+    name: "Users",
     component: User,
     props: true,
     beforeEnter: (to, from, next) => {

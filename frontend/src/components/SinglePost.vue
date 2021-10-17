@@ -6,7 +6,8 @@
                 {{ postTitle(post) }}
             </router-link>
         </h3>
-        <button class="delete-button" @click.prevent="deletePost">Delete</button>
+        <!-- <button class="delete-button" @click.prevent="deletePost">Delete</button> -->
+    <button v-if="loggedIn && currentUser.username === post.username" class="delete-button" @click.prevent="deletePost">Delete</button>
     </template>
     {{ post.post }}
     <template v-slot:footer>
@@ -53,7 +54,7 @@ export default {
         },
         linkUser(username) {
             return {
-                name: "User",
+                name: "Users",
                 params: {
                     username: username
                 }
